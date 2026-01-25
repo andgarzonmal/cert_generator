@@ -11,7 +11,7 @@ class CertificatesController < ApplicationController
     word_template = params[:word_template]
 
     if excel_file.nil? || word_template.nil?
-      redirect_to root_path, alert: "Please upload both files."
+      redirect_to root_path, alert: "Por favor sube ambos archivos."
       return
     end
 

@@ -1,26 +1,28 @@
-<h1>Certificate Generator</h1>
-<p>Upload your Excel data file and your Word template to generate a .zip file with all the certificates.</p>
+<div class="container">
+  <div class="card">
+    <h1>Generador de Certificados</h1>
+    <p class="subtitle">Sube tu archivo Excel y tu plantilla Word para generar los certificados automáticamente.</p>
 
-<hr>
+    <%= form_with(url: certificates_create_path, method: :post, multipart: true, data: { turbo: false }) do |form| %>
+      <div class="form-group">
+        <%= form.label :excel_file, "1. Archivo Excel (.xlsx)", class: "form-label" %>
+        <%= form.file_field :excel_file, accept: ".xlsx", required: true, class: "form-control" %>
+      </div>
 
-<%# This form will post to the 'certificates/create' path %>
-<%= form_with(url: certificates_create_path, method: :post, multipart: true, data: { turbo: false }) do |form| %>
-  <div style="margin-bottom: 15px;">
-    <%= form.label :excel_file, "1. Select your Excel file (.xlsx):", style: "display: block; margin-bottom: 5px;" %>
-    <%= form.file_field :excel_file, accept: ".xlsx", required: true %>
+      <div class="form-group">
+        <%= form.label :word_template, "2. Plantilla Word (.docx)", class: "form-label" %>
+        <%= form.file_field :word_template, accept: ".docx", required: true, class: "form-control" %>
+      </div>
+
+      <div style="margin-top: 2rem;">
+        <%= form.submit "Generar Certificados", class: "btn" %>
+      </div>
+    <% end %>
+
+    <% if flash[:alert] %>
+      <div class="alert">
+        <%= flash[:alert] %>
+      </div>
+    <% end %>
   </div>
-
-  <div style="margin-bottom: 15px;">
-    <%= form.label :word_template, "2. Select your Word template (.docx):", style: "display: block; margin-bottom: 5px;" %>
-    <%= form.file_field :word_template, accept: ".docx", required: true %>
-  </div>
-
-  <div>
-    <%= form.submit "Generate Documents", style: "padding: 10px 15px; background-color: #007bff; color: white; border: none; border-radius: 5px; cursor: pointer;" %>
-  </div>
-<% end %>
-
-<%# This will display an alert if the user fails to upload both files %>
-<% if flash[:alert] %>
-  <p style="color: red; margin-top: 20px;"><%= flash[:alert] %></p>
-<% end %>
+</div>
