@@ -37,13 +37,13 @@ class CertificatesController < ApplicationController
             "Consecutivo"              => row["FOLIO"],
             "Numero-factura"           => row["FACTURA"],
             "Numero-interno-cliente"   => row["ID CLIENTE"],
-            "Generadon"                => row["GENERADOR"],             # Tal cual como en la imagen
-            "Identificacion-generadon" => row["NUMERO IDENTIFICACION"], # Tal cual como en la imagen
+            "Generador"                => row["GENERADOR"],             # Tal cual como en la imagen
+            "Identificacion-generador" => row["NUMERO IDENTIFICACION"], # Tal cual como en la imagen
             "Cantidad-kg"              => row["CANT."].to_s,
             "Tipo-de-residuo"          => row["TIPO RESIDUO"],
             "Fecha-recepcion"          => row["FECHA ENTREGA"],
-            "Geston"                   => row["GESTOR O TRANSPORTADOR"], # Tal cual como en la imagen
-            "Identificacion-geston"    => row["NUMERO IDENTIFICACION"],  # Tal cual como en la imagen
+            "Gestor"                   => row["GESTOR O TRANSPORTADOR"], # Tal cual como en la imagen
+            "Identificacion-gestor"    => row["NUMERO IDENTIFICACION"],  # Tal cual como en la imagen
             "Fecha-de-expedicion"      => Time.zone.now.strftime("%d-%m-%Y"),
             "Proveniente-de"           => row["TIPO RESIDUO"],           # Asumiendo procedencia = tipo residuo (como estaba antes)
             "Direccion-cliente"        => row["DIRECCION DEL RESIDUO"]
