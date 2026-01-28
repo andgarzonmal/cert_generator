@@ -31,20 +31,22 @@ class CertificatesController < ApplicationController
           next if row["FOLIO"].blank?
 
           # Creamos el hash 'contexto' con los datos de la fila actual del Excel.
-          # Las claves (ej. :folio) deben coincidir con los nombres de los MergeFields en el Word.
+          # Las claves deben coincidir EXACTAMENTE con los MergeFields del Word.
+          # Usamos Strings como claves porque tienen guiones (ej. "Numero-factura").
           context = {
-            folio:           row["FOLIO"],
-            factura:         row["FACTURA"],
-            id_cliente:      row["ID CLIENTE"],
-            nombre_generador: row["GENERADOR"],
-            id_generador:     row["NUMERO IDENTIFICACION"],
-            cantidad:         row["CANT."].to_s,
-            fecha_recepcion:  row["FECHA ENTREGA"],
-            nombre_gestor:    row["GESTOR O TRANSPORTADOR"],
-            id_gestor:        row["NUMERO IDENTIFICACION"],
-            procedencia:      row["TIPO RESIDUO"],
-            direccion:        row["DIRECCION DEL RESIDUO"],
-            fecha_actual:     Time.zone.now.strftime("%d-%m-%Y")
+            "Consecutivo"              => row["FOLIO"],
+            "Numero-factura"           => row["FACTURA"],
+            "Numero-interno-cliente"   => row["ID CLIENTE"],
+            "Generadon"                => row["GENERADOR"],             # Tal cual como en la imagen
+            "Identificacion-generadon" => row["NUMERO IDENTIFICACION"], # Tal cual como en la imagen
+            "Cantidad-kg"              => row["CANT."].to_s,
+            "Tipo-de-residuo"          => row["TIPO RESIDUO"],
+            "Fecha-recepcion"          => row["FECHA ENTREGA"],
+            "Geston"                   => row["GESTOR O TRANSPORTADOR"], # Tal cual como en la imagen
+            "Identificacion-geston"    => row["NUMERO IDENTIFICACION"],  # Tal cual como en la imagen
+            "Fecha-de-expedicion"      => Time.zone.now.strftime("%d-%m-%Y"),
+            "Proveniente-de"           => row["TIPO RESIDUO"],           # Asumiendo procedencia = tipo residuo (como estaba antes)
+            "Direccion-cliente"        => row["DIRECCION DEL RESIDUO"]
           }
 
           # Cargamos la plantilla de Word
